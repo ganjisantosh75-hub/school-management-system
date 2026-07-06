@@ -6,7 +6,7 @@ import TeacherAttendanceHistory from "./pages/TeacherAttendanceHistory";
 import Home from "./pages/Home";
 import Academics from "./pages/Academics";
 import Admissions from "./pages/Admissions";
-import gallery from "./pages/gallery";
+import Gallery from "./pages/gallery";
 import Contact from "./pages/Contact";
 import Apply from "./pages/Apply";
 
@@ -93,7 +93,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/academics" element={<Academics />} />
       <Route path="/admissions" element={<Admissions />} />
-      <Route path="/Gallery" element={<gallery />} />
+      <Route path="/gallery" element={<Gallery />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/apply" element={<Apply />} />
       <Route path="/teacher-profile" element={<TeacherProfile />} />
