@@ -6,7 +6,7 @@ import TeacherAttendanceHistory from "./pages/TeacherAttendanceHistory";
 import Home from "./pages/Home";
 import Academics from "./pages/Academics";
 import Admissions from "./pages/Admissions";
-import Gallery from "./pages/Gallery";
+import gallery from "./pages/gallery";
 import Contact from "./pages/Contact";
 import Apply from "./pages/Apply";
 
