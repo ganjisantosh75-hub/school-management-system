@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function ViewGallery() {
   const { id } = useParams();
@@ -13,9 +14,9 @@ function ViewGallery() {
 
   const fetchGallery = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/gallery/${id}`
-      );
+     const response = await fetch(
+  `${API_URL}/api/gallery/${id}`
+);
 
       const data = await response.json();
 
@@ -48,10 +49,10 @@ function ViewGallery() {
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
 
           <img
-            src={`http://localhost:5000/${gallery.image}`}
-            alt={gallery.title}
-            className="w-full h-[450px] object-cover"
-          />
+  src={`${API_URL}/${gallery.image}`}
+  alt={gallery.title}
+  className="w-full h-[450px] object-cover"
+/>
 
           <div className="p-8">
 

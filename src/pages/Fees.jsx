@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function Fees() {
   const [fees, setFees] = useState([]);
@@ -11,7 +12,7 @@ function Fees() {
 
   const fetchFees = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/fees");
+      const response = await fetch(`${API_URL}/api/fees`);
       const data = await response.json();
 
       if (data.success) {
@@ -32,11 +33,11 @@ function Fees() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/fees/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+  `${API_URL}/api/fees/${id}`,
+  {
+    method: "DELETE",
+  }
+);
 
       const data = await response.json();
 

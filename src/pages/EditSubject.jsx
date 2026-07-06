@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function EditSubject() {
   const { id } = useParams();
@@ -22,9 +23,8 @@ function EditSubject() {
   const fetchSubject = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/subjects/${id}`
-      );
-
+  `${API_URL}/api/subjects/${id}`
+);
       const data = await response.json();
 
       if (data.success) {
@@ -54,7 +54,7 @@ function EditSubject() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/subjects/${id}`,
+  `${API_URL}/api/subjects/${id}`,
         {
           method: "PUT",
           headers: {

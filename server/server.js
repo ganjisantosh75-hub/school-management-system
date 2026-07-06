@@ -2,10 +2,15 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 import path from "path";
 
+// import Admin from "./models/Admin.js";
+
+import bcrypt from "bcryptjs";
 import Admin from "./models/Admin.js";
+
+
 
 import admissionRoutes from "./routes/admissionRoutes.js";
 import teacherRoutes from "./routes/teacherRoutes.js";
@@ -96,9 +101,15 @@ const createAdmin = async () => {
     });
 
     if (adminExists) {
-      console.log("✅ Admin already exists");
-      return;
-    }
+
+  adminExists.password = await bcrypt.hash("admin123", 10);
+
+  await adminExists.save();
+
+  console.log("✅ Admin Password Reset Successfully");
+
+  return;
+}
 
     const hashedPassword = await bcrypt.hash("admin123", 10);
 

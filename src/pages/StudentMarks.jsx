@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentLayout from "../component/student/StudentLayout";
+import API_URL from "../config";
 
 function StudentMarks() {
 
@@ -16,8 +17,8 @@ function StudentMarks() {
 
             const token = localStorage.getItem("studentToken");
 
-            const response = await fetch(
-                "http://localhost:5000/api/marks/student",
+           const response = await fetch(
+    `${API_URL}/api/marks/student`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

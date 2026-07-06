@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TeacherLayout from "../component/teacher/TeacherLayout";
+import API_URL from "../config";
 
 function TeacherAttendanceHistory() {
     const [attendance, setAttendance] = useState([]);
@@ -24,10 +25,10 @@ function TeacherAttendanceHistory() {
 
             const token = localStorage.getItem("teacherToken");
 
-            let url = "http://localhost:5000/api/attendance/history";
+            let url = `${API_URL}/api/attendance/history`;
 
             if (selectedDate) {
-                url = `http://localhost:5000/api/attendance/history/${selectedDate}`;
+               url = `${API_URL}/api/attendance/history/${selectedDate}`;
             }
 
             const response = await fetch(url, {

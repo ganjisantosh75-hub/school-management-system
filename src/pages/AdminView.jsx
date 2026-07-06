@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function AdminView() {
   const { id } = useParams();
@@ -13,8 +14,8 @@ function AdminView() {
   const fetchAdmission = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admissions/${id}`
-      );
+  `${API_URL}/api/admissions/${id}`
+);
 
       const data = await response.json();
 

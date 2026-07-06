@@ -3,7 +3,10 @@ import express from "express";
 import {
   studentLogin,
   getStudentProfile,
-  changeStudentPassword
+  changeStudentPassword,
+  getStudentSubjects,
+  getStudentAttendance,
+  getStudentFees
 } from "../controllers/studentAuthController.js";
 
 import studentAuth from "../middleware/studentAuth.js";
@@ -33,6 +36,24 @@ router.put(
   "/change-password",
   studentAuth,
   changeStudentPassword
+);
+
+router.get(
+  "/subjects",
+  studentAuth,
+  getStudentSubjects
+);
+
+router.get(
+  "/attendance",
+  studentAuth,
+  getStudentAttendance
+);
+
+router.get(
+  "/fees",
+  studentAuth,
+  getStudentFees
 );
 
 export default router;

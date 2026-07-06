@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function ViewFee() {
   const { id } = useParams();
@@ -14,9 +15,8 @@ function ViewFee() {
   const fetchFee = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/fees/${id}`
-      );
-
+  `${API_URL}/api/fees/${id}`
+);
       const data = await response.json();
 
       if (data.success) {

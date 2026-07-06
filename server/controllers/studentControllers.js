@@ -23,7 +23,7 @@ export const createStudent = async (req, res) => {
     });
 
   }
-};
+};  
 
 // Get All Students
 export const getStudents = async (req, res) => {

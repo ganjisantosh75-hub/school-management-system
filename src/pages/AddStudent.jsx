@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function AddStudent() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function AddStudent() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/students", {
+     const response = await fetch(`${API_URL}/api/students`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TeacherLayout from "../component/teacher/TeacherLayout";
+import API_URL from "../config";
 
 function TeacherChangePassword() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function TeacherChangePassword() {
       const token = localStorage.getItem("teacherToken");
 
       const response = await fetch(
-        "http://localhost:5000/api/teacher/change-password",
+        `${API_URL}/api/teacher/change-password`,
         {
           method: "PUT",
           headers: {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function EditEvent() {
   const { id } = useParams();
@@ -20,8 +21,8 @@ function EditEvent() {
   const fetchEvent = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/events/${id}`
-      );
+  `${API_URL}/api/events/${id}`
+);
 
       const data = await response.json();
 
@@ -52,15 +53,15 @@ function EditEvent() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/events/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+  `${API_URL}/api/events/${id}`,
+  {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  }
+);
 
       const data = await response.json();
 

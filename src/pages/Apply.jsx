@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_URL from "../config";
 
 function Apply() {
     const [formData, setFormData] = useState({
@@ -27,7 +28,7 @@ function Apply() {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:5000/api/admissions", {
+           const response = await fetch(`${API_URL}/api/admissions`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

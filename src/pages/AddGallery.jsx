@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function AddGallery() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function AddGallery() {
       console.log("Form Data:", formData);
 
       const response = await fetch(
-        "http://localhost:5000/api/gallery",
+        `${API_URL}/api/gallery`,
         {
           method: "POST",
           body: uploadData,

@@ -1,50 +1,48 @@
 import { useEffect, useState } from "react";
 import StudentLayout from "../component/student/StudentLayout";
+import API_URL from "../config";
 
 
 
 function StudentDashboard() {
 
-    const [student, setStudent] = useState(null);
-const [loading, setLoading] = useState(true);
+  const [student, setStudent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
+  useEffect(() => {
     fetchProfile();
-}, []);
+  }, []);
 
-const fetchProfile = async () => {
+  const fetchProfile = async () => {
     try {
-        const token = localStorage.getItem("studentToken");
+      const token = localStorage.getItem("studentToken");
 
-        const response = await fetch(
-            "http://localhost:5000/api/student/profile",
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
+      const response = await fetch(`${API_URL}/api/student/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("studentToken")}`,
+        },
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (data.success) {
-            setStudent(data.data);
-        }
+      if (data.success) {
+        setStudent(data.data);
+      }
 
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
 
     setLoading(false);
-};
+  };
 
-if (loading) {
+  if (loading) {
     return (
-        <StudentLayout>
-            <h2 className="text-2xl">Loading...</h2>
-        </StudentLayout>
+      <StudentLayout>
+        <h2 className="text-2xl">Loading...</h2>
+      </StudentLayout>
     );
-}
+  }
   return (
     <StudentLayout>
 

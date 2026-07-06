@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function Subjects() {
   const [subjects, setSubjects] = useState([]);
@@ -11,7 +12,7 @@ function Subjects() {
 
   const fetchSubjects = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/subjects");
+      const response = await fetch(`${API_URL}/api/subjects`);
       const data = await response.json();
 
       if (data.success) {
@@ -32,7 +33,7 @@ function Subjects() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/subjects/${id}`,
+        `${API_URL}/api/subjects/${id}`,
         {
           method: "DELETE",
         }

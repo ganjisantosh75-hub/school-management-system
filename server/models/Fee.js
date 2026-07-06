@@ -2,6 +2,13 @@ import mongoose from "mongoose";
 
 const feeSchema = new mongoose.Schema(
   {
+
+    student: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+      required: true,
+    },
+
     studentName: {
       type: String,
       required: true,

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TeacherLayout from "../component/teacher/TeacherLayout";
+import API_URL from "../config";
 
 function TeacherStudents() {
     const [students, setStudents] = useState([]);
@@ -14,14 +15,14 @@ function TeacherStudents() {
         try {
             const token = localStorage.getItem("teacherToken");
 
-            const response = await fetch(
-                "http://localhost:5000/api/teacher/students",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+           const response = await fetch(
+    `${API_URL}/api/teacher/students`,
+    {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }
+);
 
             const data = await response.json();
 
@@ -60,6 +61,7 @@ function TeacherStudents() {
                                 <th className="p-4 text-left">Class</th>
                                 <th className="p-4 text-left">Gender</th>
                                 <th className="p-4 text-left">Mobile</th>
+                                <th className="p-4 text-center">Action</th>
                             </tr>
 
                         </thead>
@@ -87,10 +89,10 @@ function TeacherStudents() {
                                     <td className="p-4">
                                         <img
                                             src={
-                                                student.photo
-                                                    ? `http://localhost:5000/uploads/${student.photo}`
-                                                    : "https://via.placeholder.com/50"
-                                            }
+    student.photo
+        ? `${API_URL}/uploads/${student.photo}`
+        : "https://via.placeholder.com/50"
+}
                                             alt={`${student.firstName} ${student.lastName}`}
                                             className="w-12 h-12 rounded-full object-cover"
                                         />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../config";
 
 function Login() {
   const navigate = useNavigate();
@@ -21,15 +22,15 @@ function Login() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+  `${API_URL}/api/admin/login`,
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  }
+);
 
       const data = await response.json();
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function Teachers() {
   const [teachers, setTeachers] = useState([]);
@@ -11,7 +12,7 @@ function Teachers() {
 
   const fetchTeachers = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/teachers");
+      const response = await fetch(`${API_URL}/api/teachers`);
       const data = await response.json();
 
       if (data.success) {
@@ -32,11 +33,11 @@ function Teachers() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/teachers/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+  `${API_URL}/api/teachers/${id}`,
+  {
+    method: "DELETE",
+  }
+);
 
       const data = await response.json();
 

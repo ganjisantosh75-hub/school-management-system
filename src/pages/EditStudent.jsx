@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function EditStudent() {
   const { id } = useParams();
@@ -29,8 +30,8 @@ function EditStudent() {
   const fetchStudent = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/students/${id}`
-      );
+  `${API_URL}/api/students/${id}`
+);
 
       const data = await response.json();
 
@@ -69,8 +70,8 @@ function EditStudent() {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/students/${id}`,
+     const response = await fetch(
+  `${API_URL}/api/students/${id}`,
         {
           method: "PUT",
           headers: {

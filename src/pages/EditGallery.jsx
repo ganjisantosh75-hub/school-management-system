@@ -1,6 +1,7 @@
   import { useEffect, useState } from "react";
   import { useNavigate, useParams } from "react-router-dom";
   import AdminLayout from "../component/admin/AdminLayout";
+  import API_URL from "../config";
 
   function EditGallery() {
     const { id } = useParams();
@@ -23,8 +24,8 @@
     const fetchGallery = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/gallery/${id}`
-        );
+  `${API_URL}/api/gallery/${id}`
+);
 
         const data = await response.json();
 
@@ -151,11 +152,11 @@
                 Current Image
               </p>
 
-              <img
-                src={`http://localhost:5000/${oldImage}`}
-                alt="Gallery"
-                className="w-72 rounded-lg border"
-              />
+             <img
+  src={`${API_URL}/${oldImage}`}
+  alt="Gallery"
+  className="w-72 rounded-lg border"
+/>
             </div>
 
           </form>

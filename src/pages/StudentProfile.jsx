@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentLayout from "../component/student/StudentLayout";
+import API_URL from "../config";
 
 function StudentProfile() {
   const [student, setStudent] = useState(null);
@@ -13,14 +14,12 @@ function StudentProfile() {
     try {
       const token = localStorage.getItem("studentToken");
 
-      const response = await fetch(
-        "http://localhost:5000/api/student/profile",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_URL}/api/student/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }); 
+      
 
       const data = await response.json();
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import TeacherLayout from "../component/teacher/TeacherLayout";
+import API_URL from "../config";
 
 function TeacherStudentView() {
   const { id } = useParams();
@@ -17,13 +18,13 @@ function TeacherStudentView() {
       const token = localStorage.getItem("teacherToken");
 
       const response = await fetch(
-        `http://localhost:5000/api/teacher/student/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  `${API_URL}/api/teacher/student/${id}`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
       const data = await response.json();
 
@@ -59,10 +60,10 @@ function TeacherStudentView() {
         <div className="flex justify-center mb-8">
           <img
             src={
-              student.photo
-                ? `http://localhost:5000/uploads/${student.photo}`
-                : "https://via.placeholder.com/150"
-            }
+  student.photo
+    ? `${API_URL}/uploads/${student.photo}`
+    : "https://via.placeholder.com/150"
+}
             alt={student.fullName}
             className="w-40 h-40 rounded-full object-cover border"
           />

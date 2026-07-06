@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TeacherLayout from "../component/teacher/TeacherLayout";
+import API_URL from "../config";
 
 function TeacherAttendance() {
     const [students, setStudents] = useState([]);
@@ -21,7 +22,7 @@ function TeacherAttendance() {
             const token = localStorage.getItem("teacherToken");
 
             const response = await fetch(
-                "http://localhost:5000/api/teacher/profile",
+                `${API_URL}/api/teacher/profile`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -48,14 +49,13 @@ function TeacherAttendance() {
             const token = localStorage.getItem("teacherToken");
 
             const response = await fetch(
-                "http://localhost:5000/api/teacher/students",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-
+    `${API_URL}/api/teacher/students`,
+    {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }
+);
             const data = await response.json();
 
             if (data.success) {
@@ -109,7 +109,7 @@ function TeacherAttendance() {
             const today = new Date().toISOString().split("T")[0];
 
             const response = await fetch(
-                "http://localhost:5000/api/attendance/save",
+                `${API_URL}/api/attendance/save`,
                 {
                     method: "POST",
                     headers: {

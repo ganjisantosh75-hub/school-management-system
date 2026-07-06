@@ -1,5 +1,6 @@
 import { useState } from "react";
 import StudentLayout from "../component/student/StudentLayout";
+import API_URL from "../config";
 
 function StudentChangePassword() {
 
@@ -23,8 +24,8 @@ function StudentChangePassword() {
 
             const token = localStorage.getItem("studentToken");
 
-            const response = await fetch(
-                "http://localhost:5000/api/student/change-password",
+           const response = await fetch(
+    `${API_URL}/student/change-password`,
                 {
                     method: "PUT",
                     headers: {

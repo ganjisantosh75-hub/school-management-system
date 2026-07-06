@@ -34,7 +34,7 @@ function TeacherSidebar() {
 
           <li>
             <Link
-              to="/teacher-attendance"
+              to="/teacher/attendance"
               className="block px-4 py-3 rounded-lg hover:bg-blue-700"
             >
               Attendance

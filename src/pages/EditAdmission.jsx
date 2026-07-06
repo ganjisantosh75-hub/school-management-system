@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function EditAdmission() {
   const { id } = useParams();
@@ -26,8 +27,8 @@ function EditAdmission() {
   const fetchAdmission = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admissions/${id}`
-      );
+  `${API_URL}/api/admissions/${id}`
+);
 
       const data = await response.json();
 
@@ -49,16 +50,15 @@ function EditAdmission() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admissions/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
+  `${API_URL}/api/admissions/${id}`,
+  {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  }
+);
       const data = await response.json();
 
       alert(data.message);

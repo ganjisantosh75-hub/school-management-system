@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentLayout from "../component/student/StudentLayout";
+import API_URL from "../config";
 
 function StudentSubjects() {
 
@@ -16,14 +17,11 @@ function StudentSubjects() {
 
             const token = localStorage.getItem("studentToken");
 
-            const response = await fetch(
-                "http://localhost:5000/api/subjects/student",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await fetch(`${API_URL}/api/student/subjects`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("studentToken")}`,
+                },
+            });
 
             const data = await response.json();
 
@@ -42,95 +40,95 @@ function StudentSubjects() {
     };
 
     if (loading) {
+        return (
+            <StudentLayout>
+                <h2 className="text-2xl">
+                    Loading...
+                </h2>
+            </StudentLayout>
+        );
+    }
     return (
         <StudentLayout>
-            <h2 className="text-2xl">
-                Loading...
-            </h2>
-        </StudentLayout>
-    );
-}
-    return (
-    <StudentLayout>
 
-        <div>
+            <div>
 
-            <h1 className="text-4xl font-bold mb-2">
-                My Subjects
-            </h1>
+                <h1 className="text-4xl font-bold mb-2">
+                    My Subjects
+                </h1>
 
-            <p className="text-gray-600 mb-8">
-                Subjects assigned to your class.
-            </p>
+                <p className="text-gray-600 mb-8">
+                    Subjects assigned to your class.
+                </p>
 
-            {
-                subjects.length === 0 ? (
+                {
+                    subjects.length === 0 ? (
 
-                    <div className="bg-white rounded-xl shadow p-8 text-center">
+                        <div className="bg-white rounded-xl shadow p-8 text-center">
 
-                        <h2 className="text-2xl font-semibold">
-                            No Subjects Found
-                        </h2>
+                            <h2 className="text-2xl font-semibold">
+                                No Subjects Found
+                            </h2>
 
-                    </div>
+                        </div>
 
-                ) : (
+                    ) : (
 
-                    <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-                        {
-                            subjects.map((subject) => (
+                            {
+                                subjects.map((subject) => (
 
-                                <div
-                                    key={subject._id}
-                                    className="bg-white rounded-xl shadow p-6"
-                                >
+                                    <div
+                                        key={subject._id}
+                                        className="bg-white rounded-xl shadow p-6"
+                                    >
 
-                                    <h2 className="text-2xl font-bold text-blue-700 mb-4">
-                                        {subject.subjectName}
-                                    </h2>
+                                        <h2 className="text-2xl font-bold text-blue-700 mb-4">
+                                            {subject.subjectName}
+                                        </h2>
 
-                                    <div className="space-y-3">
+                                        <div className="space-y-3">
 
-                                        <p>
-                                            <strong>Subject Code :</strong>{" "}
-                                            {subject.subjectCode}
-                                        </p>
+                                            <p>
+                                                <strong>Subject Code :</strong>{" "}
+                                                {subject.subjectCode}
+                                            </p>
 
-                                        <p>
-                                            <strong>Teacher :</strong>{" "}
-                                            {subject.teacherName}
-                                        </p>
+                                            <p>
+                                                <strong>Teacher :</strong>{" "}
+                                                {subject.teacherName}
+                                            </p>
 
-                                        <p>
-                                            <strong>Credits :</strong>{" "}
-                                            {subject.credits}
-                                        </p>
+                                            <p>
+                                                <strong>Credits :</strong>{" "}
+                                                {subject.credits}
+                                            </p>
 
-                                        <p>
-                                            <strong>Description :</strong>
-                                        </p>
+                                            <p>
+                                                <strong>Description :</strong>
+                                            </p>
 
-                                        <p className="text-gray-600">
-                                            {subject.description}
-                                        </p>
+                                            <p className="text-gray-600">
+                                                {subject.description}
+                                            </p>
+
+                                        </div>
 
                                     </div>
 
-                                </div>
+                                ))
+                            }
 
-                            ))
-                        }
+                        </div>
 
-                    </div>
+                    )
+                }
 
-                )
-            }
+            </div>
 
-        </div>
-
-    </StudentLayout>
-);
+        </StudentLayout>
+    );
 }
 
 export default StudentSubjects;

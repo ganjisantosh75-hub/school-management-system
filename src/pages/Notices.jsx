@@ -1,17 +1,42 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function Notices() {
   const [notices, setNotices] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
     fetchNotices();
   }, []);
 
   const fetchNotices = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/notices");
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+  `${API_URL}/api/notices`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+      if (response.status === 401) {
+        localStorage.removeItem("token");
+        navigate("/login");
+        return;
+      }
+
       const data = await response.json();
 
       if (data.success) {
@@ -31,18 +56,28 @@ function Notices() {
     if (!confirmDelete) return;
 
     try {
+      const token = localStorage.getItem("token");
+
       const response = await fetch(
-        `http://localhost:5000/api/notices/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+  `${API_URL}/api/notices/${id}`,
+  {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+      if (response.status === 401) {
+        localStorage.removeItem("token");
+        navigate("/login");
+        return;
+      }
 
       const data = await response.json();
 
       if (data.success) {
         alert("Notice Deleted Successfully");
-
         fetchNotices();
       } else {
         alert(data.message);

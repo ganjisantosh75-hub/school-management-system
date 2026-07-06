@@ -463,7 +463,7 @@ function App() {
       />
 
       <Route
-        path="/teacher-attendance"
+        path="/teacher/attendance"
         element={
           <TeacherProtectedRoute>
             <TeacherAttendance />

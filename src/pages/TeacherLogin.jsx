@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API_URL from "../config";
 
 function TeacherLogin() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function TeacherLogin() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/teacher/login",
+        `${API_URL}/api/teacher/login`,
         {
           method: "POST",
           headers: {

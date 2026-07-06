@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function GalleryAdmin() {
   const [gallery, setGallery] = useState([]);
@@ -11,7 +12,7 @@ function GalleryAdmin() {
 
   const fetchGallery = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/gallery");
+      const response = await fetch(`${API_URL}/api/gallery`);
 
       const data = await response.json();
 
@@ -32,11 +33,11 @@ function GalleryAdmin() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/gallery/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+  `${API_URL}/api/gallery/${id}`,
+  {
+    method: "DELETE",
+  }
+);
 
       const data = await response.json();
 

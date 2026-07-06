@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function AddNotice() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function AddNotice() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/notices",
+        `${API_URL}/api/notices`,
         {
           method: "POST",
           headers: {

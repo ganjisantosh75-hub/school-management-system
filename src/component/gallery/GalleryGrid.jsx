@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from "../../config";
 
 function GalleryGrid() {
   const [gallery, setGallery] = useState([]);
@@ -9,7 +10,7 @@ function GalleryGrid() {
 
   const fetchGallery = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/gallery");
+      const response = await fetch(`${API_URL}/api/gallery`);
       const data = await response.json();
 
       console.log("Gallery Data:", data);
@@ -49,7 +50,7 @@ function GalleryGrid() {
             gallery.map((item) => {
               const imageUrl = item.image.startsWith("http")
                 ? item.image
-                : `http://localhost:5000/${item.image}`;
+                : `${API_URL}/${item.image}`;
 
               return (
                 <div

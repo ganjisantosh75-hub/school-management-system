@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function AddFee() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function AddFee() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/fees", {
+      const response = await fetch(`${API_URL}/api/fees`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

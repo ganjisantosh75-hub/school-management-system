@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentLayout from "../component/student/StudentLayout";
+import API_URL from "../config";
 
 function StudentAttendance() {
 
@@ -17,16 +18,19 @@ function StudentAttendance() {
 
             const token = localStorage.getItem("studentToken");
 
-            const response = await fetch(
-                "http://localhost:5000/api/attendance/student",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await fetch(`${API_URL}/api/student/attendance`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log("Status:", response.status);
 
             const data = await response.json();
+
+            console.log(JSON.stringify(data, null, 2));
+
+
 
             if (data.success) {
 
@@ -157,8 +161,8 @@ function StudentAttendance() {
 
                                             <span
                                                 className={`px-4 py-1 rounded-full text-white ${item.status === "Present"
-                                                        ? "bg-green-600"
-                                                        : "bg-red-600"
+                                                    ? "bg-green-600"
+                                                    : "bg-red-600"
                                                     }`}
                                             >
                                                 {item.status}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TeacherLayout from "../component/teacher/TeacherLayout";
+import API_URL from "../config";
 
 function TeacherMarks() {
 
@@ -44,13 +45,13 @@ function TeacherMarks() {
             const token = localStorage.getItem("teacherToken");
 
             const response = await fetch(
-                "http://localhost:5000/api/teacher/students",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+    `${API_URL}/api/teacher/students`,
+    {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }
+);
 
             const data = await response.json();
 
@@ -75,7 +76,7 @@ function TeacherMarks() {
             const token = localStorage.getItem("teacherToken");
 
             const response = await fetch(
-                "http://localhost:5000/api/subjects",
+                `${API_URL}/api/subjects`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -106,7 +107,7 @@ function TeacherMarks() {
             const token = localStorage.getItem("teacherToken");
 
             const response = await fetch(
-                "http://localhost:5000/api/marks",
+                `${API_URL}/api/marks`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -139,7 +140,7 @@ function TeacherMarks() {
             const token = localStorage.getItem("teacherToken");
 
             const response = await fetch(
-                "http://localhost:5000/api/marks/save",
+                `${API_URL}/api/marks/save`,
                 {
                     method: "POST",
                     headers: {
@@ -199,7 +200,7 @@ function TeacherMarks() {
             const token = localStorage.getItem("teacherToken");
 
             const response = await fetch(
-                `http://localhost:5000/api/marks/${id}`,
+                `${API_URL}/api/marks/${id}`,
                 {
                     method: "DELETE",
                     headers: {

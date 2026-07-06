@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function Events() {
   const [events, setEvents] = useState([]);
@@ -11,7 +12,7 @@ function Events() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/events");
+      const response = await fetch(`${API_URL}/api/events`);
       const data = await response.json();
 
       if (data.success) {
@@ -31,12 +32,13 @@ function Events() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/events/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+     const response = await fetch(
+  `${API_URL}/api/events/${id}`,
+  {
+    method: "DELETE",
+  }
+);
+        
 
       const data = await response.json();
 

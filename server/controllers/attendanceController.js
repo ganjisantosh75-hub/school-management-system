@@ -46,6 +46,8 @@ export const saveAttendance = async (req, res) => {
       status: item.status,
     }));
 
+    console.log("Attendance Data:", attendanceData);
+
     await Attendance.insertMany(attendanceData);
 
     res.status(201).json({
@@ -157,44 +159,81 @@ export const getTeacherAttendanceHistory = async (req, res) => {
 // Student Attendance
 // ======================================
 
+// export const getStudentAttendance = async (req, res) => {
+//   try {
+
+//     console.log("Logged In Student ID:", req.student._id);
+
+//     const attendance = await Attendance.find({
+//       student: req.student._id,
+//     }).sort({
+//       attendanceDate: -1,
+//     });
+
+//     console.log("Attendance Found:", attendance);
+
+//     const totalDays = attendance.length;
+
+//     const presentDays = attendance.filter(
+//       (item) => item.status === "Present"
+//     ).length;
+
+//     const absentDays = attendance.filter(
+//       (item) => item.status === "Absent"
+//     ).length;
+
+//     const percentage =
+//       totalDays === 0
+//         ? 0
+//         : ((presentDays / totalDays) * 100).toFixed(2);
+
+//     res.status(200).json({
+//       success: true,
+//       totalDays,
+//       presentDays,
+//       absentDays,
+//       percentage,
+//       data: attendance,
+//     });
+
+//   } catch (error) {
+//     console.log(error);
+
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
 export const getStudentAttendance = async (req, res) => {
   try {
+
+    console.log("Logged Student ID:", req.student._id.toString());
+
     const attendance = await Attendance.find({
       student: req.student._id,
-    }).sort({
-      attendanceDate: -1,
     });
 
-    const totalDays = attendance.length;
+    console.log("Attendance Found:", attendance);
 
-    const presentDays = attendance.filter(
-      (item) => item.status === "Present"
-    ).length;
-
-    const absentDays = attendance.filter(
-      (item) => item.status === "Absent"
-    ).length;
-
-    const percentage =
-      totalDays === 0
-        ? 0
-        : ((presentDays / totalDays) * 100).toFixed(2);
-
-    res.status(200).json({
+    res.json({
       success: true,
-      totalDays,
-      presentDays,
-      absentDays,
-      percentage,
       data: attendance,
+      totalDays: attendance.length,
+      presentDays: attendance.filter(a => a.status === "Present").length,
+      absentDays: attendance.filter(a => a.status === "Absent").length,
+      percentage:
+        attendance.length === 0
+          ? 0
+          : (
+              attendance.filter(a => a.status === "Present").length /
+              attendance.length *
+              100
+            ).toFixed(2),
     });
 
-  } catch (error) {
-    console.log(error);
-
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+  } catch (err) {
+    console.log(err);
   }
 };

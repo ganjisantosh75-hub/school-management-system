@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function Admin() {
   const [admissions, setAdmissions] = useState([]);
@@ -12,7 +13,7 @@ function Admin() {
 
   const fetchAdmissions = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/admissions");
+      const response = await fetch(`${API_URL}/api/admissions`);
       const data = await response.json();
 
       setAdmissions(data.data);
@@ -31,9 +32,9 @@ function Admin() {
     }
 
     try {
-      await fetch(`http://localhost:5000/api/admissions/${id}`, {
-        method: "DELETE",
-      });
+     await fetch(`${API_URL}/api/admissions/${id}`, {
+  method: "DELETE",
+});
 
       fetchAdmissions();
     } catch (error) {

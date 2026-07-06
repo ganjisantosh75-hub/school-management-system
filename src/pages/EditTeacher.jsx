@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
+
 
 function EditTeacher() {
   const { id } = useParams();
@@ -11,6 +13,8 @@ function EditTeacher() {
     gender: "Male",
     qualification: "",
     subject: "",
+    className: "",
+    section: "",
     experience: "",
     mobile: "",
     email: "",
@@ -25,8 +29,8 @@ function EditTeacher() {
   const fetchTeacher = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/teachers/${id}`
-      );
+  `${API_URL}/api/teachers/${id}`
+);
 
       const data = await response.json();
 
@@ -36,6 +40,8 @@ function EditTeacher() {
           gender: data.data.gender || "Male",
           qualification: data.data.qualification || "",
           subject: data.data.subject || "",
+          className: data.data.className || "",
+          section: data.data.section || "",
           experience: data.data.experience || "",
           mobile: data.data.mobile || "",
           email: data.data.email || "",
@@ -60,15 +66,15 @@ function EditTeacher() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/teachers/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+  `${API_URL}/api/teachers/${id}`,
+  {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  }
+);
 
       const data = await response.json();
 
@@ -96,7 +102,7 @@ function EditTeacher() {
           onSubmit={handleSubmit}
           className="bg-white shadow-lg rounded-xl p-8"
         >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             {/* Full Name */}
             <div>
@@ -164,6 +170,52 @@ function EditTeacher() {
               />
             </div>
 
+            <div>
+              <label className="block font-semibold mb-2">
+                Assigned Class
+              </label>
+
+              <select
+                name="className"
+                value={formData.className}
+                onChange={handleChange}
+                className="w-full border rounded-lg px-4 py-3"
+                required
+              >
+                <option value="">Select Class</option>
+                <option value="1">Class 1</option>
+                <option value="2">Class 2</option>
+                <option value="3">Class 3</option>
+                <option value="4">Class 4</option>
+                <option value="5">Class 5</option>
+                <option value="6">Class 6</option>
+                <option value="7">Class 7</option>
+                <option value="8">Class 8</option>
+                <option value="9">Class 9</option>
+                <option value="10">Class 10</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block font-semibold mb-2">
+                Assigned Section
+              </label>
+
+              <select
+                name="section"
+                value={formData.section}
+                onChange={handleChange}
+                className="w-full border rounded-lg px-4 py-3"
+                required
+              >
+                <option value="">Select Section</option>
+                <option value="A">Section A</option>
+                <option value="B">Section B</option>
+                <option value="C">Section C</option>
+                <option value="D">Section D</option>
+              </select>
+            </div>
+
             {/* Experience */}
             <div>
               <label className="block font-semibold mb-2">
@@ -173,6 +225,7 @@ function EditTeacher() {
               <input
                 type="number"
                 name="experience"
+                min="0"
                 value={formData.experience}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-4 py-3"
@@ -247,7 +300,7 @@ function EditTeacher() {
             />
 
           </div>
-                    <button
+          <button
             type="submit"
             className="mt-8 bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-3 rounded-lg"
           >

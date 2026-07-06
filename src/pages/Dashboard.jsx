@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "../component/admin/AdminLayout";
+import API_URL from "../config";
 
 function Dashboard() {
   const [totalAdmissions, setTotalAdmissions] = useState(0);
@@ -14,7 +15,7 @@ function Dashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/admissions");
+      const response = await fetch(`${API_URL}/api/admissions`);
       const data = await response.json();
 
       const admissions = data.data;
