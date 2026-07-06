@@ -1,4 +1,4 @@
-import newsData from "../data/newsData";
+import newsData from "../data/NewsData";
 import NewsCard from "./NewsCard";
 
 const News = () => {

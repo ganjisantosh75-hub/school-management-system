@@ -7,7 +7,7 @@ import Principal from "../component/principal";
 import Facilities from "../component/facilities";
 import Teachers from "../component/teachers";
 import Gallery from "../component/gallery";
-import News from "../component/news";
+import News from "../component/News";
 import ContactPreview from "../component/contactPreview";
 import Footer from "../component/footer";
 function App() {

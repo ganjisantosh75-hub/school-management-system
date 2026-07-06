@@ -1,13 +1,13 @@
-import ContactBanner from "../component/contact/ContactBanner";
-import ContactSection from "../component/contact/ContactSection";
-import ContactMap from "../component/contact/ContactMap";
+import ContactBanner from "../component/Contact/ContactBanner";
+import ContactSection from "../component/Contact/ContactSection";
+import ContactMap from "../component/Contact/ContactMap";
 
 function Contact() {
   return (
     <main>
       <ContactBanner />
       <ContactSection />
-        <ContactMap />
+      <ContactMap />
     </main>
   );
 }
