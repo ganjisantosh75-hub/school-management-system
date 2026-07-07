@@ -20,6 +20,8 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("API_URL =", API_URL);
+
     try {
       const response = await fetch(
   `${API_URL}/api/admin/login`,
