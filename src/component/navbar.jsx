@@ -38,7 +38,7 @@ function Navbar() {
                     </div>
 
                     <div className="flex gap-4 text-lg mx-auto md:mx-0">
-                        <FaFacebookF className="cursor-pointer hover:text-yellow-300" />
+                        <FaFacebookF className="cursor-pointer transition-all duration-300 hover:text-yellow-300 hover:scale-125" />
                         <FaInstagram className="cursor-pointer hover:text-yellow-300" />
                         <FaYoutube className="cursor-pointer hover:text-yellow-300" />
                     </div>
@@ -111,7 +111,7 @@ function Navbar() {
 
                     <Link
                         to="/login"
-                        className="bg-blue-900 hover:bg-blue-800 text-white px-5 py-2 rounded-lg font-medium transition duration-300"
+                        className="bg-white border-2 border-blue-900 text-blue-900 px-6 py-3 rounded-xl font-semibold hover:bg-blue-900 hover:text-white transition-all duration-300 shadow-md"
                     >
                         Login
                     </Link>
