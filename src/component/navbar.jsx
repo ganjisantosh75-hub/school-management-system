@@ -39,8 +39,8 @@ function Navbar() {
 
                     <div className="flex gap-4 text-lg mx-auto md:mx-0">
                         <FaFacebookF className="cursor-pointer transition-all duration-300 hover:text-yellow-300 hover:scale-125" />
-                        <FaInstagram className="cursor-pointer hover:text-yellow-300" />
-                        <FaYoutube className="cursor-pointer hover:text-yellow-300" />
+                        <FaInstagram className="cursor-pointer transition-all duration-300 hover:text-yellow-300 hover:scale-125" />
+                        <FaYoutube className="cursor-pointer transition-all duration-300 hover:text-yellow-300 hover:scale-125"/>
                     </div>
                 </div>
             </div>
