@@ -46,9 +46,10 @@ function Navbar() {
             </div>
 
             {/* Navbar */}
-            <nav className="sticky top-0 bg-white shadow-md z-50">
+            {/* <nav className="sticky top-0 bg-white shadow-md z-50"> */}
+            <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200 shadow-lg transition-all duration-300">
 
-                <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
 
                     {/* Logo */}
                     <div className="flex items-center gap-3">
@@ -56,11 +57,12 @@ function Navbar() {
                         <img
                             src={logo}
                             alt="logo"
-                            className="w-16 h-16 rounded-full object-cover"
+                            // className="w-16 h-16 rounded-full object-cover"
+                            className="w-16 h-16 rounded-full object-cover border-2 border-blue-100 shadow-md"
                         />
 
                         <div>
-                            <h1 className="text-2xl font-bold text-blue-900">
+                            <h1 className="text-2xl font-extrabold text-blue-900 tracking-wide">
                                 Kamalam Public School
                             </h1>
 
@@ -72,9 +74,9 @@ function Navbar() {
                     </div>
 
                     {/* Desktop Menu */}
-                    <ul className="hidden md:flex gap-8 font-semibold">
+                    <ul className="hidden md:flex items-center gap-8 font-semibold text-gray-700">
 
-                        <li className="hover:text-blue-700">
+                        <li className="relative cursor-pointer transition-all duration-300 hover:text-blue-900 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:w-full">
                             <a href="#home">home</a>
                         </li>
 
@@ -101,7 +103,7 @@ function Navbar() {
                     </ul>
                     <Link
                         to="/apply"
-                        className="hidden md:flex items-center gap-2 bg-blue-900 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                        className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-900 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
                     >
                         Apply Now
                         <FaArrowRight />
@@ -147,7 +149,7 @@ function Navbar() {
                                 <Link
                                     to="/apply"
                                     onClick={() => setIsOpen(false)}
-                                    className="flex items-center justify-center gap-2 bg-blue-900 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                                    className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-900 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
                                 >
                                     Apply Now
                                     <FaArrowRight />
