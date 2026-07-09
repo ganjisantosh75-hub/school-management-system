@@ -76,7 +76,7 @@ function Navbar() {
                     {/* Desktop Menu */}
                     <ul className="hidden md:flex items-center gap-8 font-semibold text-gray-700">
 
-                        <li className="relative cursor-pointer transition-all duration-300 hover:text-blue-900 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:w-full">
+                        <li className="hover:text-blue-700">
                             <a href="#home">home</a>
                         </li>
 
