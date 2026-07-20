@@ -7,7 +7,7 @@ function AddFee() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    studentName: "",
+    student: "",
     rollNumber: "",
     className: "",
     totalFee: "",
@@ -73,8 +73,8 @@ function AddFee() {
 
               <input
                 type="text"
-                name="studentName"
-                value={formData.studentName}
+                name="student"
+                value={formData.student}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-4 py-3"
                 placeholder="Enter Student Name"
