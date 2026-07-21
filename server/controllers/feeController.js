@@ -1,20 +1,49 @@
 import Fee from "../models/Fee.js";
 
 // Create Fee
+// export const createFee = async (req, res) => {
+//   try {
+//     const fee = await Fee.create(req.body);
+
+//     res.status(201).json({
+//       success: true,
+//       message: "Fee added successfully",
+//       data: fee,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
 export const createFee = async (req, res) => {
   try {
+    console.log("========== REQUEST BODY ==========");
+    console.log(req.body);
+
     const fee = await Fee.create(req.body);
+
+    console.log("========== SAVED ==========");
+    console.log(fee);
 
     res.status(201).json({
       success: true,
       message: "Fee added successfully",
       data: fee,
     });
+
   } catch (error) {
+
+    console.log("========== ERROR ==========");
+    console.log(error);
+
     res.status(500).json({
       success: false,
       message: error.message,
     });
+
   }
 };
 
