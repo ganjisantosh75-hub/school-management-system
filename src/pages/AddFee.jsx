@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
 import API_URL from "../config";
@@ -6,8 +6,11 @@ import API_URL from "../config";
 function AddFee() {
   const navigate = useNavigate();
 
+  const [students, setStudents] = useState([]);
+
   const [formData, setFormData] = useState({
     student: "",
+    studentName: "",
     rollNumber: "",
     className: "",
     totalFee: "",
@@ -17,15 +20,85 @@ function AddFee() {
     paymentDate: "",
   });
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/students`);
+      const data = await response.json();
+
+      if (data.success) {
+        setStudents(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleStudentChange = (e) => {
+    const studentId = e.target.value;
+
+    const selectedStudent = students.find(
+      (student) => student._id === studentId
+    );
+
+    if (!selectedStudent) return;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      student: selectedStudent._id,
+      studentName:
+        selectedStudent.firstName + " " + selectedStudent.lastName,
+      rollNumber: selectedStudent.rollNumber,
+      className: selectedStudent.className,
+      totalFee: "",
+      paidAmount: "",
+      pendingAmount: "",
+      status: "Pending",
+      paymentDate: "",
     });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    let updatedData = {
+      ...formData,
+      [name]: value,
+    };
+
+    if (name === "totalFee" || name === "paidAmount") {
+      const total = Number(
+        name === "totalFee" ? value : updatedData.totalFee
+      );
+
+      const paid = Number(
+        name === "paidAmount" ? value : updatedData.paidAmount
+      );
+
+      updatedData.pendingAmount = total - paid;
+
+      if (updatedData.pendingAmount < 0) {
+        updatedData.pendingAmount = 0;
+      }
+
+      updatedData.status =
+        updatedData.pendingAmount === 0
+          ? "Paid"
+          : "Pending";
+    }
+
+    setFormData(updatedData);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.student) {
+      return alert("Please select a student.");
+    }
 
     try {
       const response = await fetch(`${API_URL}/api/fees`, {
@@ -65,24 +138,33 @@ function AddFee() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {/* Student Name */}
+            {/* Student */}
+
             <div>
               <label className="block font-semibold mb-2">
-                Student Name
+                Student
               </label>
 
-              <input
-                type="text"
-                name="student"
+              <select
                 value={formData.student}
-                onChange={handleChange}
+                onChange={handleStudentChange}
                 className="w-full border rounded-lg px-4 py-3"
-                placeholder="Enter Student Name"
                 required
-              />
-            </div>
+              >
+                <option value="">
+                  Select Student
+                </option>
 
-            {/* Roll Number */}
+                {students.map((student) => (
+                  <option
+                    key={student._id}
+                    value={student._id}
+                  >
+                    {student.firstName} {student.lastName}
+                  </option>
+                ))}
+              </select>
+            </div>            {/* Roll Number */}
             <div>
               <label className="block font-semibold mb-2">
                 Roll Number
@@ -90,12 +172,9 @@ function AddFee() {
 
               <input
                 type="text"
-                name="rollNumber"
                 value={formData.rollNumber}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="101"
-                required
+                readOnly
+                className="w-full border rounded-lg px-4 py-3 bg-gray-100"
               />
             </div>
 
@@ -107,12 +186,9 @@ function AddFee() {
 
               <input
                 type="text"
-                name="className"
                 value={formData.className}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="10"
-                required
+                readOnly
+                className="w-full border rounded-lg px-4 py-3 bg-gray-100"
               />
             </div>
 
@@ -127,8 +203,8 @@ function AddFee() {
                 name="totalFee"
                 value={formData.totalFee}
                 onChange={handleChange}
+                placeholder="Enter Total Fee"
                 className="w-full border rounded-lg px-4 py-3"
-                placeholder="25000"
                 required
               />
             </div>
@@ -144,8 +220,8 @@ function AddFee() {
                 name="paidAmount"
                 value={formData.paidAmount}
                 onChange={handleChange}
+                placeholder="Enter Paid Amount"
                 className="w-full border rounded-lg px-4 py-3"
-                placeholder="15000"
                 required
               />
             </div>
@@ -158,12 +234,9 @@ function AddFee() {
 
               <input
                 type="number"
-                name="pendingAmount"
                 value={formData.pendingAmount}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="10000"
-                required
+                readOnly
+                className="w-full border rounded-lg px-4 py-3 bg-gray-100"
               />
             </div>
 
@@ -173,15 +246,12 @@ function AddFee() {
                 Status
               </label>
 
-              <select
-                name="status"
+              <input
+                type="text"
                 value={formData.status}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
-              >
-                <option value="Pending">Pending</option>
-                <option value="Paid">Paid</option>
-              </select>
+                readOnly
+                className="w-full border rounded-lg px-4 py-3 bg-gray-100"
+              />
             </div>
 
             {/* Payment Date */}
@@ -202,12 +272,24 @@ function AddFee() {
 
           </div>
 
-          <button
-            type="submit"
-            className="mt-8 bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 rounded-lg"
-          >
-            Save Fee
-          </button>
+          <div className="mt-8 flex gap-4">
+
+            <button
+              type="submit"
+              className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 rounded-lg"
+            >
+              Save Fee
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate("/fees")}
+              className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-lg"
+            >
+              Cancel
+            </button>
+
+          </div>
 
         </form>
 
