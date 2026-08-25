@@ -471,13 +471,12 @@ function StudentLogin() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Backend Wake Up Call
   useEffect(() => {
     const wakeBackend = async () => {
       try {
         await fetch(`${API_URL}/`);
       } catch (err) {
-        console.log("Backend connection error:", err);
+        console.log("Backend wake error:", err);
       }
     };
     wakeBackend();
@@ -529,60 +528,50 @@ function StudentLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#4F6BF6] flex items-center justify-center p-4 sm:p-6 font-sans">
+    <div className="min-h-screen bg-[#4F6BF5] flex items-center justify-center p-4 sm:p-6 font-sans relative overflow-hidden">
       
-      {/* Outer Card Wrapper */}
-      <div className="w-full max-w-4xl bg-[#4F6BF6] rounded-3xl flex flex-col md:flex-row items-center justify-between p-4 sm:p-8 relative">
+      {/* Container matching the reference image layout */}
+      <div className="w-full max-w-4xl min-h-[580px] bg-[#4F6BF5] rounded-2xl flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 relative">
         
-        {/* ================= LEFT 3D CHARACTER / AVATAR AREA ================= */}
-        <div className="w-full md:w-5/12 flex flex-col items-center justify-center mb-6 md:mb-0 relative">
-          <div className="relative group">
-            {/* Soft backdrop glow behind character */}
-            <div className="absolute inset-0 bg-blue-400/30 rounded-full blur-2xl transform group-hover:scale-105 transition duration-500"></div>
-            
-            {/* 3D Student Character Image */}
-            <img
-              src="https://cdni.iconscout.com/illustration/premium/thumb/male-student-leaning-on-wall-illustration-download-in-svg-png-gif-file-formats--person-pose-man-pack-people-illustrations-7740523.png"
-              alt="Student Character"
-              className="w-56 sm:w-72 md:w-80 h-auto relative z-10 drop-shadow-2xl transition-transform duration-300 hover:scale-105"
-            />
+        {/* ================= LEFT 3D CHARACTER / ILLUSTRAION ================= */}
+        <div className="w-full md:w-5/12 flex items-center justify-center mb-8 md:mb-0 relative">
+          <div className="w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center text-[130px] sm:text-[160px] select-none filter drop-shadow-2xl animate-bounce-slow">
+            🧑‍🎓
           </div>
         </div>
 
-        {/* ================= RIGHT FORM CONTAINER (MATCHING IMAGE STYLE) ================= */}
-        <div className="w-full md:w-7/12 max-w-md bg-[#4F6BF6] text-white p-4 sm:p-6">
+        {/* ================= RIGHT FORM SECTION ================= */}
+        <div className="w-full md:w-7/12 max-w-md mx-auto text-white">
           
-          {/* Header Title */}
-          <div className="text-center mb-6">
+          {/* Header */}
+          <div className="text-center md:text-left mb-8">
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">
               Student Login
             </h1>
-            <p className="text-blue-100/90 text-sm font-medium">
-              Access your Kamalam Public School account
+            <p className="text-blue-100 text-sm sm:text-base opacity-90">
+              Welcome back! Please enter your details below.
             </p>
           </div>
 
           {/* Error Banner */}
           {error && (
-            <div className="mb-5 p-3.5 rounded-2xl bg-red-500/20 border border-red-300/40 text-red-100 text-sm flex items-center gap-2.5 backdrop-blur-sm">
-              <span className="text-lg">⚠️</span>
+            <div className="mb-6 p-4 rounded-2xl bg-red-500/20 border border-red-200/40 text-white text-sm flex items-center gap-3">
+              <span>⚠️</span>
               <span>{error}</span>
             </div>
           )}
 
-          {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
             
             {/* Email Field */}
             <div>
-              <label className="block text-xs sm:text-sm font-semibold mb-2 text-blue-50">
+              <label className="block text-sm font-semibold mb-2 ml-1 text-blue-50">
                 Email Address *
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
+                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-lg">
+                  ✉️
                 </span>
                 <input
                   type="email"
@@ -591,22 +580,20 @@ function StudentLogin() {
                   disabled={loading}
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Ex. student@domain.com"
-                  className="w-full h-14 pl-12 pr-4 rounded-2xl bg-white text-gray-800 placeholder-gray-400 text-sm font-medium outline-none shadow-lg focus:ring-4 focus:ring-white/30 transition disabled:opacity-70"
+                  placeholder="Ex. student@kamalam.com"
+                  className="w-full h-14 pl-14 pr-5 rounded-2xl bg-white text-gray-900 placeholder-gray-400 text-base outline-none focus:ring-4 focus:ring-blue-300 transition-all shadow-md disabled:bg-gray-100"
                 />
               </div>
             </div>
 
             {/* Password Field */}
             <div>
-              <label className="block text-xs sm:text-sm font-semibold mb-2 text-blue-50">
+              <label className="block text-sm font-semibold mb-2 ml-1 text-blue-50">
                 Password *
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
+                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-lg">
+                  🔒
                 </span>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -616,29 +603,29 @@ function StudentLogin() {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Enter your password"
-                  className="w-full h-14 pl-12 pr-12 rounded-2xl bg-white text-gray-800 placeholder-gray-400 text-sm font-medium outline-none shadow-lg focus:ring-4 focus:ring-white/30 transition disabled:opacity-70"
+                  className="w-full h-14 pl-14 pr-14 rounded-2xl bg-white text-gray-900 placeholder-gray-400 text-base outline-none focus:ring-4 focus:ring-blue-300 transition-all shadow-md disabled:bg-gray-100"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   disabled={loading}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
+                  className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 transition"
                 >
                   {showPassword ? "🙈" : "👁️"}
                 </button>
               </div>
             </div>
 
-            {/* Login Button */}
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-14 mt-4 rounded-2xl bg-white text-[#4F6BF6] font-bold text-base shadow-xl hover:bg-blue-50 active:scale-[0.99] transition duration-200 disabled:opacity-70 flex items-center justify-center gap-2"
+              className="w-full h-14 mt-4 rounded-2xl bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white text-lg font-bold transition-all shadow-lg flex items-center justify-center gap-3 disabled:opacity-60"
             >
               {loading ? (
                 <>
-                  <span className="w-5 h-5 border-2 border-[#4F6BF6] border-t-transparent rounded-full animate-spin"></span>
-                  <span>Signing In...</span>
+                  <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  <span>Logging in...</span>
                 </>
               ) : (
                 <span>Login →</span>
@@ -646,13 +633,13 @@ function StudentLogin() {
             </button>
           </form>
 
-          {/* Footer Navigation */}
-          <div className="mt-8 text-center">
+          {/* Back Action */}
+          <div className="mt-8 text-center md:text-left">
             <button
               type="button"
               onClick={() => navigate("/login")}
               disabled={loading}
-              className="text-xs sm:text-sm font-semibold text-blue-100 hover:text-white transition underline underline-offset-4"
+              className="text-sm font-medium text-blue-100 hover:text-white transition inline-flex items-center gap-2"
             >
               ← Back to Portal Selection
             </button>
