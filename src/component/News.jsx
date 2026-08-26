@@ -1,5 +1,6 @@
 import newsData from "../data/NewsData";
 import NewsCard from "./NewsCard";
+import { Link } from "react-router-dom";
 
 const News = () => {
   return (
@@ -41,10 +42,11 @@ const News = () => {
         {/* Button */}
 
         <div className="text-center mt-12">
-
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-300">
-            View All News
-          </button>
+          <Link to="/news">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-300">
+              View All News
+            </button>
+          </Link>
 
         </div>
 
