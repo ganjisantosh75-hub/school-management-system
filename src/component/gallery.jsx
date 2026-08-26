@@ -1,5 +1,6 @@
 import galleryData from "../data/galleryData";
 import GalleryCard from "./GalleryCard";
+import { Link } from "react-router-dom";
 
 const Gallery = () => {
   return (
@@ -42,10 +43,12 @@ const Gallery = () => {
         {/* Button */}
 
         <div className="text-center mt-12">
-
+           
+          <Link to="/gallery">
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-300">
             View All Gallery
           </button>
+          </Link>
 
         </div>
 
