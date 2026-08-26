@@ -42,9 +42,9 @@ const News = () => {
         {/* Button */}
 
         <div className="text-center mt-12">
-          <Link to="/news">
+          <Link to="/Events">
             <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-300">
-              View All News
+              View All Events
             </button>
           </Link>
 
