@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  registerStudent,
   studentLogin,
   getStudentProfile,
   changeStudentPassword,
@@ -14,6 +15,12 @@ import studentAuth from "../middleware/studentAuth.js";
 const router = express.Router();
 
 // ===============================
+// Student Registration
+// ===============================
+
+router.post("/register", registerStudent);
+
+// ===============================
 // Student Login
 // ===============================
 
@@ -21,6 +28,7 @@ router.post(
   "/login",
   studentLogin
 );
+
 
 // ===============================
 // Student Profile

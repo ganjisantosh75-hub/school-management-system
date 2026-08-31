@@ -8,6 +8,8 @@ import {
   changeTeacherPassword,
   getTeacherStudents,
   getTeacherStudent,  
+  registerTeacher,
+
 
 } from "../controllers/teacherAuthController.js";
 
@@ -60,6 +62,9 @@ router.get(
   teacherAuth,
   getTeacherStudent
 );
+
+
+router.post("/register", registerTeacher);
 
 
 

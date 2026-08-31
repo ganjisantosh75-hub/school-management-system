@@ -508,7 +508,9 @@ function StudentLogin() {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        localStorage.setItem("studentToken", data.token);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("student", JSON.stringify(data.student || data.data));
         localStorage.setItem("studentEmail", formData.email);
         navigate("/student-dashboard", { replace: true });
         return;

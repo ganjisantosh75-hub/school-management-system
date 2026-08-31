@@ -1,146 +1,9 @@
-// import express from "express";
-// import cors from "cors";
-// import dotenv from "dotenv";
-// import mongoose from "mongoose";
-// // import bcrypt from "bcryptjs";
-// import path from "path";
-
-// // import Admin from "./models/Admin.js";
-
-// import bcrypt from "bcryptjs";
-// import Admin from "./models/Admin.js";
-
-
-
-// import admissionRoutes from "./routes/admissionRoutes.js";
-// import teacherRoutes from "./routes/teacherRoutes.js";
-// import studentRoutes from "./routes/studentRoutes.js";
-// import adminRoutes from "./routes/adminRoutes.js";
-// import subjectRoutes from "./routes/subjectRoutes.js";
-// import noticeRoutes from "./routes/noticeRoutes.js";
-// import eventRoutes from "./routes/eventRoutes.js";
-// import feeRoutes from "./routes/feeRoutes.js";
-// import galleryRoutes from "./routes/galleryRoutes.js";
-// import teacherAuthRoutes from "./routes/teacherAuthRoutes.js";
-// import attendanceRoutes from "./routes/attendanceRoutes.js";
-// import markRoutes from "./routes/markRoutes.js";
-// import studentAuthRoutes from "./routes/studentAuthRoutes.js";
-// import messageRoutes from "./routes/messageRoutes.js";
-
-// dotenv.config();
-
-// const app = express();
-
-// // ==============================
-// // Middleware
-// // ==============================
-
-// app.use(cors());
-// app.use(express.json());
-
-// // ==============================
-// // Serve Uploaded Images
-// // ==============================
-
-// app.use(
-//   "/uploads",
-//   express.static(path.join(process.cwd(), "uploads"))
-// );
-
-// // ==============================
-// // MongoDB Connection
-// // ==============================
-
-// console.log("MONGO_URI =", process.env.MONGO_URI);
-
-// mongoose
-//   .connect(process.env.MONGO_URI)
-//   .then(() => {
-//     console.log("✅ MongoDB Connected");
-//   })
-//   .catch((err) => {
-//     console.log("❌ MongoDB Connection Error");
-//     console.log(err);
-//   });
-
-// // ==============================
-// // Test Route
-// // ==============================
-
-// app.get("/", (req, res) => {
-//   res.send("Backend Running Successfully 🚀");
-// });
-
-// // ==============================
-// // API Routes
-// // ==============================
-
-// app.use("/api/admissions", admissionRoutes);
-// app.use("/api/teachers", teacherRoutes);
-// app.use("/api/students", studentRoutes);
-// app.use("/api/admin", adminRoutes);
-// app.use("/api/subjects", subjectRoutes);
-// app.use("/api/notices", noticeRoutes);
-// app.use("/api/events", eventRoutes);
-// app.use("/api/fees", feeRoutes);
-// app.use("/api/gallery", galleryRoutes);
-// app.use("/api/teacher", teacherAuthRoutes);
-// app.use("/api/attendance", attendanceRoutes);
-// app.use("/api/marks", markRoutes);
-// app.use("/api/student", studentAuthRoutes);
-// app.use("/api/messages", messageRoutes);
-
-// // ==============================
-// // Create Default Admin
-// // ==============================
-
-// const createAdmin = async () => {
-//   try {
-//     const adminExists = await Admin.findOne({
-//       email: "admin@gmail.com",
-//     });
-
-//     if (adminExists) {
-
-//   adminExists.password = await bcrypt.hash("admin123", 10);
-
-//   await adminExists.save();
-
-//   console.log("✅ Admin Password Reset Successfully");
-
-//   return;
-// }
-
-//     const hashedPassword = await bcrypt.hash("admin123", 10);
-
-//     await Admin.create({
-//       email: "admin@gmail.com",
-//       password: hashedPassword,
-//     });
-
-//     console.log("✅ Default Admin Created");
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// createAdmin();
-
-// // ==============================
-// // Start Server
-// // ==============================
-
-// const PORT = process.env.PORT || 5000;
-
-// app.listen(PORT, () => {
-//   console.log(`🚀 Server running on port ${PORT}`);
-// });
-
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import path from "path";
+import { fileURLToPath } from "url";
 import bcrypt from "bcryptjs";
 
 import Admin from "./models/Admin.js";
@@ -160,7 +23,11 @@ import markRoutes from "./routes/markRoutes.js";
 import studentAuthRoutes from "./routes/studentAuthRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 
-dotenv.config();
+// Load Environment Variables (support running from root or server directory)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, ".env") });
+dotenv.config(); // fallback to current working directory
 
 const app = express();
 
@@ -168,7 +35,13 @@ const app = express();
 // Middleware
 // ==============================
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // ==============================
@@ -177,7 +50,7 @@ app.use(express.json());
 
 app.use(
   "/uploads",
-  express.static(path.join(process.cwd(), "uploads"))
+  express.static(path.join(__dirname, "uploads"))
 );
 
 // ==============================
@@ -185,55 +58,56 @@ app.use(
 // ==============================
 
 app.get("/", (req, res) => {
-  res.status(200).send("Backend Running Successfully 🚀");
+  res.status(200).send(
+    "KAMALAM PUBLIC SCHOOL Backend Running Successfully 🚀"
+  );
 });
 
 // ==============================
-// API Routes
+// Authentication Routes
+// ==============================
+
+app.use("/api/admin", adminRoutes);
+app.use("/api/teacher", teacherAuthRoutes);
+app.use("/api/student", studentAuthRoutes);
+
+// ==============================
+// Management Routes
 // ==============================
 
 app.use("/api/admissions", admissionRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/students", studentRoutes);
-app.use("/api/admin", adminRoutes);
 app.use("/api/subjects", subjectRoutes);
 app.use("/api/notices", noticeRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/fees", feeRoutes);
 app.use("/api/gallery", galleryRoutes);
-app.use("/api/teacher", teacherAuthRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/marks", markRoutes);
-app.use("/api/student", studentAuthRoutes);
 app.use("/api/messages", messageRoutes);
 
 // ==============================
-// Create Default Admin
+// Default Admin Initializer
 // ==============================
 
-const createAdmin = async () => {
+const createDefaultAdmin = async () => {
   try {
-    const email = "admin@gmail.com";
+    const adminEmail = "admin@gmail.com";
+    const existingAdmin = await Admin.findOne({ email: adminEmail });
 
-    const adminExists = await Admin.findOne({ email });
-
-    // Don't reset password every server restart
-    if (adminExists) {
-      console.log("✅ Admin already exists");
-      return;
+    if (!existingAdmin) {
+      const hashedPassword = await bcrypt.hash("admin123", 10);
+      await Admin.create({
+        name: "Super Admin",
+        email: adminEmail,
+        password: hashedPassword,
+        role: "admin",
+      });
+      console.log("✅ Default Admin Created (admin@gmail.com / admin123)");
     }
-
-    const hashedPassword = await bcrypt.hash("admin123", 10);
-
-    await Admin.create({
-      email,
-      password: hashedPassword,
-    });
-
-    console.log("✅ Default Admin Created");
-
   } catch (error) {
-    console.error("❌ Admin Creation Error:", error);
+    console.error("Default Admin Check Error:", error.message);
   }
 };
 
@@ -242,42 +116,24 @@ const createAdmin = async () => {
 // ==============================
 
 const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 
-const startServer = async () => {
-  try {
+if (!MONGO_URI) {
+  console.error("❌ MONGO_URI is not defined in environment variables!");
+}
 
-    // ==============================
-    // Connect MongoDB FIRST
-    // ==============================
+console.log("Connecting to MongoDB...");
 
-    console.log("🔄 Connecting to MongoDB...");
-
-    await mongoose.connect(process.env.MONGO_URI);
-
+mongoose
+  .connect(MONGO_URI)
+  .then(async () => {
     console.log("✅ MongoDB Connected");
+    await createDefaultAdmin();
+  })
+  .catch((error) => {
+    console.error("❌ MongoDB Connection Error:", error.message);
+  });
 
-    // ==============================
-    // Create Admin AFTER DB connection
-    // ==============================
-
-    await createAdmin();
-
-    // ==============================
-    // Start Express Server
-    // ==============================
-
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`🌐 Port: ${PORT}`);
-    });
-
-  } catch (error) {
-
-    console.error("❌ Server Startup Error:");
-    console.error(error);
-
-    process.exit(1);
-  }
-};
-
-startServer();
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});

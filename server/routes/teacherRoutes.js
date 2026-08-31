@@ -2,6 +2,7 @@ import express from "express";
 
 
 import {
+  registerTeacher,
   createTeacher,
   getTeachers,
   getTeacher,
@@ -12,21 +13,55 @@ import {
 
 const router = express.Router();
 
-// Create Teacher
-router.post("/", createTeacher);
 
-// Get All Teachers
-router.get("/", getTeachers);
+// =====================================================
+// Teacher Registration
+// =====================================================
 
-// Get Single Teacher
-router.get("/:id", getTeacher);
+router.post(
+  "/register",
+  registerTeacher
+);
 
-// Update Teacher
-router.put("/:id", updateTeacher);
 
-// Delete Teacher
-router.delete("/:id", deleteTeacher);
+// =====================================================
+// Teacher CRUD
+// =====================================================
 
-// router.get("/students", teacherAuth,getTeacherStudents);
+router.post(
+  "/",
+  createTeacher
+);
+
+router.get(
+  "/",
+  getTeachers
+);
+
+router.get(
+  "/:id",
+  getTeacher
+);
+
+router.put(
+  "/:id",
+  updateTeacher
+);
+
+router.delete(
+  "/:id",
+  deleteTeacher
+);
+
+
+// =====================================================
+// Teacher Students
+// =====================================================
+
+router.get(
+  "/my-students",
+  getTeacherStudents
+);
+
 
 export default router;

@@ -3,71 +3,98 @@ import bcrypt from "bcryptjs";
 
 const studentSchema = new mongoose.Schema(
   {
+    name: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
     firstName: {
       type: String,
-      required: true,
       trim: true,
+      default: "",
     },
 
     lastName: {
       type: String,
-      required: true,
       trim: true,
+      default: "",
     },
 
-    gender: {
-      type: String,
-      required: true,
-    },
-
-    dateOfBirth: {
-      type: Date,
-      required: true,
-    },
-
-    className: {
-      type: String,
-      required: true,
-    },
-
-    section: {
-      type: String,
-      required: true,
-    },
-
-    rollNumber: {
+    email: {
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
       trim: true,
     },
 
-    admissionNumber: {
+    phone: {
       type: String,
-      required: true,
-      unique: true,
       trim: true,
-    },
-
-    fatherName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    motherName: {
-      type: String,
-      required: true,
-      trim: true,
+      default: "",
     },
 
     parentPhone: {
       type: String,
-      required: true,
       trim: true,
+      default: "",
     },
 
-    email: {
+    studentId: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    admissionNumber: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    className: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    section: {
+      type: String,
+      trim: true,
+      default: "A",
+    },
+
+    rollNumber: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    gender: {
+      type: String,
+      enum: ["Male", "Female", "Other"],
+      default: "Other",
+    },
+
+    dateOfBirth: {
+      type: Date,
+      default: null,
+    },
+
+    fatherName: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    motherName: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    address: {
       type: String,
       trim: true,
       default: "",
@@ -78,10 +105,9 @@ const studentSchema = new mongoose.Schema(
       required: true,
     },
 
-    address: {
+    role: {
       type: String,
-      required: true,
-      trim: true,
+      default: "student",
     },
   },
   {
@@ -89,35 +115,39 @@ const studentSchema = new mongoose.Schema(
   }
 );
 
-// ==============================
-// Hash Password Before Save
-// ==============================
-
-studentSchema.pre("save", async function (next) {
-
-  if (!this.isModified("password")) {
-    return next();
+// Synchronize name <-> firstName/lastName and studentId <-> admissionNumber
+studentSchema.pre("save", function (next) {
+  // Sync name with firstName / lastName
+  if (!this.name && (this.firstName || this.lastName)) {
+    this.name = `${this.firstName || ""} ${this.lastName || ""}`.trim();
+  } else if (this.name && !this.firstName) {
+    const parts = this.name.trim().split(" ");
+    this.firstName = parts[0] || "";
+    this.lastName = parts.slice(1).join(" ") || "";
   }
 
-  const salt = await bcrypt.genSalt(10);
+  // Sync studentId <-> admissionNumber
+  if (!this.studentId && this.admissionNumber) {
+    this.studentId = this.admissionNumber;
+  }
+  if (!this.admissionNumber && this.studentId) {
+    this.admissionNumber = this.studentId;
+  }
 
-  this.password = await bcrypt.hash(this.password, salt);
+  // Sync phone <-> parentPhone
+  if (!this.phone && this.parentPhone) {
+    this.phone = this.parentPhone;
+  }
+  if (!this.parentPhone && this.phone) {
+    this.parentPhone = this.phone;
+  }
 
   next();
-
 });
 
-// ==============================
-// Match Password
-// ==============================
-
+// Compare password method
 studentSchema.methods.matchPassword = async function (enteredPassword) {
-
-  return await bcrypt.compare(
-    enteredPassword,
-    this.password
-  );
-
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
-export default mongoose.model("Student", studentSchema);
+export default mongoose.model("Student", studentSchema);

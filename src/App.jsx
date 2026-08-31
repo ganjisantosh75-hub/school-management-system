@@ -3,6 +3,11 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import TeacherProtectedRoute from "./component/teacher/TeacherProtectedRoute";
 import TeacherAttendanceHistory from "./pages/TeacherAttendanceHistory";
 
+
+
+import AdminRegister from "./pages/AdminRegister";
+import TeacherRegister from "./pages/TeacherRegister";
+import StudentRegister from "./pages/StudentRegister";
 import Home from "./pages/Home";
 import Academics from "./pages/Academics";
 import Admissions from "./pages/Admissions";
@@ -102,7 +107,22 @@ function App() {
 
       <Route path="/login" element={<LoginPortal />} />
       <Route path="/login/admin" element={<Login />} />
+      <Route
+        path="/register/admin"
+        element={<AdminRegister />}
+      />
+
+
       <Route path="/teacher-login" element={<TeacherLogin />} />
+      <Route
+    path="/register/teacher"
+    element={<TeacherRegister />}
+  />
+
+   <Route
+    path="/register/student"
+    element={<StudentRegister />}
+  />
 
 
       {/* Dashboard */}
@@ -544,11 +564,11 @@ function App() {
       />
 
       <Route
-  path="/student-fees"
-  element={<StudentFees />}
-/>
+        path="/student-fees"
+        element={<StudentFees />}
+      />
 
-<Route path="/student-login" element={<StudentLogin />} />
+      <Route path="/student-login" element={<StudentLogin />} />
 
     </Routes>
 

@@ -6,38 +6,171 @@ import Attendance from "../models/Attendance.js";
 import Fee from "../models/Fee.js";
 
 // ======================================
+// Student Registration
+// ======================================
+
+export const registerStudent = async (req, res) => {
+  try {
+    const {
+      name,
+      firstName,
+      lastName,
+      email,
+      phone,
+      parentPhone,
+      studentId,
+      admissionNumber,
+      className,
+      rollNumber,
+      rollNo,
+      password,
+      gender,
+      dateOfBirth,
+      fatherName,
+      motherName,
+      address,
+      section,
+    } = req.body;
+
+    const studentName = name || (firstName ? `${firstName} ${lastName || ""}`.trim() : "");
+    const studentIdentifier = studentId || admissionNumber || rollNumber || rollNo;
+
+    // Validation
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required",
+      });
+    }
+
+    if (!studentName) {
+      return res.status(400).json({
+        success: false,
+        message: "Student name is required",
+      });
+    }
+
+    // Check existing student by email
+    const existingStudent = await Student.findOne({
+      email: email.toLowerCase(),
+    });
+
+    if (existingStudent) {
+      return res.status(409).json({
+        success: false,
+        message: "Student with this email already exists",
+      });
+    }
+
+    // Check existing studentId / admissionNumber if provided
+    if (studentIdentifier) {
+      const existingId = await Student.findOne({
+        $or: [
+          { studentId: studentIdentifier },
+          { admissionNumber: studentIdentifier },
+        ],
+      });
+
+      if (existingId) {
+        return res.status(409).json({
+          success: false,
+          message: "Student ID / Admission Number already exists",
+        });
+      }
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create student
+    const student = await Student.create({
+      name: studentName,
+      firstName: firstName || studentName.split(" ")[0],
+      lastName: lastName || studentName.split(" ").slice(1).join(" ") || "",
+      email: email.toLowerCase(),
+      phone: phone || parentPhone || "",
+      parentPhone: parentPhone || phone || "",
+      studentId: studentIdentifier || `STU-${Date.now().toString().slice(-6)}`,
+      admissionNumber: admissionNumber || studentIdentifier || `ADM-${Date.now().toString().slice(-6)}`,
+      className: className || "",
+      section: section || "A",
+      rollNumber: rollNumber || rollNo || "",
+      gender: gender || "Other",
+      dateOfBirth: dateOfBirth || null,
+      fatherName: fatherName || "",
+      motherName: motherName || "",
+      address: address || "",
+      password: hashedPassword,
+      role: "student",
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Student registered successfully",
+      student: {
+        id: student._id,
+        _id: student._id,
+        name: student.name,
+        firstName: student.firstName,
+        lastName: student.lastName,
+        email: student.email,
+        studentId: student.studentId,
+        admissionNumber: student.admissionNumber,
+        className: student.className,
+        section: student.section,
+        rollNumber: student.rollNumber,
+        role: "student",
+      },
+    });
+  } catch (error) {
+    console.error("STUDENT REGISTER ERROR:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// ======================================
 // Student Login
 // ======================================
 
 export const studentLogin = async (req, res) => {
   try {
-    const { admissionNumber, password } = req.body;
+    const { email, admissionNumber, studentId, password } = req.body;
+    const loginIdentifier = email || admissionNumber || studentId;
 
     // Validation
-    if (!admissionNumber || !password) {
+    if (!loginIdentifier || !password) {
       return res.status(400).json({
         success: false,
-        message: "Admission Number and Password are required",
+        message: "Email or Admission Number and Password are required",
       });
     }
 
-    // Find Student
-    const student = await Student.findOne({ admissionNumber });
+    // Find Student by email, admissionNumber, or studentId
+    const student = await Student.findOne({
+      $or: [
+        { email: loginIdentifier.toLowerCase() },
+        { admissionNumber: loginIdentifier },
+        { studentId: loginIdentifier },
+      ],
+    });
 
     if (!student) {
       return res.status(401).json({
         success: false,
-        message: "Invalid Admission Number",
+        message: "Invalid credentials",
       });
     }
 
     // Check Password
-    const isMatch = await student.matchPassword(password);
+    const isMatch = await bcrypt.compare(password, student.password);
 
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        message: "Invalid Password",
+        message: "Invalid password",
       });
     }
 
@@ -45,6 +178,7 @@ export const studentLogin = async (req, res) => {
     const token = jwt.sign(
       {
         id: student._id,
+        role: "student",
       },
       process.env.JWT_SECRET,
       {
@@ -52,22 +186,31 @@ export const studentLogin = async (req, res) => {
       }
     );
 
+    const studentInfo = {
+      _id: student._id,
+      id: student._id,
+      name: student.name || `${student.firstName || ""} ${student.lastName || ""}`.trim(),
+      firstName: student.firstName || student.name?.split(" ")[0] || "Student",
+      lastName: student.lastName || student.name?.split(" ").slice(1).join(" ") || "",
+      email: student.email,
+      admissionNumber: student.admissionNumber || student.studentId,
+      studentId: student.studentId || student.admissionNumber,
+      className: student.className,
+      section: student.section,
+      rollNumber: student.rollNumber,
+      role: "student",
+    };
+
     res.status(200).json({
       success: true,
       message: "Login Successful",
       token,
-      data: {
-        _id: student._id,
-        firstName: student.firstName,
-        lastName: student.lastName,
-        admissionNumber: student.admissionNumber,
-        className: student.className,
-        section: student.section,
-      },
+      data: studentInfo,
+      student: studentInfo,
     });
 
   } catch (error) {
-    console.log(error);
+    console.error("STUDENT LOGIN ERROR:", error);
 
     res.status(500).json({
       success: false,

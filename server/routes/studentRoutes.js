@@ -6,6 +6,8 @@ import {
   getStudent,
   updateStudent,
   deleteStudent,
+  registerStudent
+  
 } from "../controllers/studentControllers.js";
 
 const router = express.Router();
@@ -24,5 +26,7 @@ router.put("/:id", updateStudent);
 
 // Delete Student
 router.delete("/:id", deleteStudent);
+router.post("/register", registerStudent);
+
 
 export default router;

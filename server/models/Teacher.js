@@ -1,87 +1,127 @@
 import mongoose from "mongoose";
 
 const teacherSchema = new mongoose.Schema(
-    {
-        fullName: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-            trim: true,
-            lowercase: true,
-        },
-
-        mobile: {
-            type: String,
-            required: true,
-        },
-
-        gender: {
-            type: String,
-            required: true,
-            enum: ["Male", "Female", "Other"],
-        },
-
-        qualification: {
-            type: String,
-            required: true,
-        },
-
-        experience: {
-            type: Number,
-            required: true,
-        },
-
-        subject: {
-            type: String,
-            required: true,
-        },
-
-        className: {
-            type: String,
-            required: true,
-        },
-
-        section: {
-            type: String,
-            required: true,
-        },
-
-        salary: {
-            type: Number,
-            required: true,
-        },
-
-        employeeId: {
-            type: String,
-            required: true,
-        },
-
-        joiningDate: {
-            type: Date,
-            required: true,
-        },
-
-        address: {
-            type: String,
-            required: true,
-        },
-
-        password: {
-            type: String,
-            required: true,
-        },
+  {
+    fullName: {
+      type: String,
+      trim: true,
+      default: "",
     },
-    {
-        timestamps: true,
-    }
+
+    name: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+
+    mobile: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    phone: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    employeeId: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+
+    subject: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    gender: {
+      type: String,
+      enum: ["Male", "Female", "Other"],
+      default: "Other",
+    },
+
+    qualification: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    experience: {
+      type: mongoose.Schema.Types.Mixed,
+      default: "",
+    },
+
+    className: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    section: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    salary: {
+      type: mongoose.Schema.Types.Mixed,
+      default: "",
+    },
+
+    joiningDate: {
+      type: Date,
+      default: Date.now,
+    },
+
+    address: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    password: {
+      type: String,
+      required: true,
+    },
+
+    role: {
+      type: String,
+      default: "teacher",
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
 
-const Teacher = mongoose.model("Teacher", teacherSchema);
+// Synchronize name <-> fullName and phone <-> mobile
+teacherSchema.pre("save", function (next) {
+  if (!this.fullName && this.name) {
+    this.fullName = this.name;
+  }
+  if (!this.name && this.fullName) {
+    this.name = this.fullName;
+  }
+  if (!this.mobile && this.phone) {
+    this.mobile = this.phone;
+  }
+  if (!this.phone && this.mobile) {
+    this.phone = this.mobile;
+  }
+  next();
+});
 
-export default Teacher;
+export default mongoose.model("Teacher", teacherSchema);
