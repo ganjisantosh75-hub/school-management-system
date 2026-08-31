@@ -17,7 +17,7 @@ function TeacherAttendance() {
     // Teacher Profile
     // ===========================
 
-    const fetchTeacher = async () => {
+    const fetchTeacher = async () => {  
         try {
             const token = localStorage.getItem("teacherToken");
 
