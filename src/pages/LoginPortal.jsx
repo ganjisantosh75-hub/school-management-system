@@ -107,205 +107,12 @@
 
 // export default LoginPortal;
 
-// import { Link } from "react-router-dom";
-
-// function LoginPortal() {
-//     const portals = [
-//         {
-//             icon: "👨‍💼",
-//             title: "Admin",
-//             description:
-//                 "Manage admissions, teachers, students, fees, results and complete school records.",
-//             loginPath: "/login/admin",
-//             registerPath: "/register/admin",
-//         },
-//         {
-//             icon: "👨‍🏫",
-//             title: "Teacher",
-//             description:
-//                 "Manage attendance, homework, marks, students and class activities.",
-//             loginPath: "/teacher-login",
-//             registerPath: "/register/teacher",
-//         },
-//         {
-//             icon: "👨‍🎓",
-//             title: "Student",
-//             description:
-//                 "View attendance, results, homework, notices and academic information.",
-//             loginPath: "/student-login",
-//             registerPath: "/register/student",
-//         },
-//     ];
-
-//     return (
-//         <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-800 to-sky-500 flex items-center justify-center px-4 py-8 sm:px-6">
-
-//             <div className="w-full max-w-7xl">
-
-//                 {/* =========================
-//                     HEADER
-//                 ========================= */}
-//                 <div className="text-center mb-10 sm:mb-14">
-
-//                     <div className="text-5xl sm:text-6xl mb-4">
-//                         🏫
-//                     </div>
-
-//                     <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
-//                         Kamalam Public School
-//                     </h1>
-
-//                     <p className="text-blue-100 mt-3 sm:mt-5 text-base sm:text-xl">
-//                         Welcome to the School Management Portal
-//                     </p>
-
-//                     <p className="text-blue-200 mt-2 text-sm sm:text-base">
-//                         Please choose your login or registration portal
-//                     </p>
-
-//                 </div>
-
-
-//                 {/* =========================
-//                     LOGIN / REGISTER PORTALS
-//                 ========================= */}
-//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-
-//                     {portals.map((portal) => (
-//                         <div
-//                             key={portal.title}
-//                             className="
-//                                 bg-white
-//                                 rounded-2xl
-//                                 shadow-xl
-//                                 p-6 sm:p-8
-//                                 text-center
-//                                 transition-all
-//                                 duration-300
-//                                 hover:-translate-y-2
-//                                 hover:shadow-2xl
-//                                 flex
-//                                 flex-col
-//                                 min-h-[420px]
-//                             "
-//                         >
-
-//                             {/* Icon */}
-//                             <div className="text-6xl sm:text-7xl mb-5">
-//                                 {portal.icon}
-//                             </div>
-
-
-//                             {/* Title */}
-//                             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
-//                                 {portal.title}
-//                             </h2>
-
-
-//                             {/* Description */}
-//                             <p className="text-gray-600 mt-4 text-sm sm:text-base leading-7 flex-grow">
-//                                 {portal.description}
-//                             </p>
-
-
-//                             {/* =========================
-//                                 BUTTONS
-//                             ========================= */}
-//                             <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
-
-//                                 {/* LOGIN */}
-//                                 <Link
-//                                     to={portal.loginPath}
-//                                     className="
-//                                         inline-flex
-//                                         items-center
-//                                         justify-center
-//                                         w-full
-//                                         sm:w-auto
-//                                         min-w-[120px]
-//                                         bg-blue-900
-//                                         hover:bg-blue-800
-//                                         active:bg-blue-950
-//                                         text-white
-//                                         font-semibold
-//                                         px-6
-//                                         py-3
-//                                         rounded-lg
-//                                         transition
-//                                         duration-200
-//                                         shadow-md
-//                                         hover:shadow-lg
-//                                     "
-//                                 >
-//                                     Login
-//                                 </Link>
-
-
-//                                 {/* REGISTER */}
-//                                 <Link
-//                                     to={portal.registerPath}
-//                                     className="
-//                                         inline-flex
-//                                         items-center
-//                                         justify-center
-//                                         w-full
-//                                         sm:w-auto
-//                                         min-w-[120px]
-//                                         border-2
-//                                         border-blue-900
-//                                         text-blue-900
-//                                         hover:bg-blue-900
-//                                         hover:text-white
-//                                         active:bg-blue-950
-//                                         font-semibold
-//                                         px-6
-//                                         py-3
-//                                         rounded-lg
-//                                         transition
-//                                         duration-200
-//                                     "
-//                                 >
-//                                     Register
-//                                 </Link>
-
-//                             </div>
-
-//                         </div>
-//                     ))}
-
-//                 </div>
-
-
-//                 {/* =========================
-//                     FOOTER
-//                 ========================= */}
-//                 <div className="text-center mt-10">
-
-//                     <p className="text-blue-100 text-sm">
-//                         © 2026 Kamalam Public School
-//                     </p>
-
-//                     <p className="text-blue-200 text-xs mt-2">
-//                         Secure School Management System
-//                     </p>
-
-//                 </div>
-
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default LoginPortal;
-
-
 import { Link } from "react-router-dom";
-import { UserCheck, Presentation, GraduationCap, School } from "lucide-react";
 
 function LoginPortal() {
     const portals = [
         {
-            icon: <UserCheck className="w-16 h-16 text-amber-500 stroke-[1.5]" />,
+            icon: "👨‍💼",
             title: "Admin",
             description:
                 "Manage admissions, teachers, students, fees, results and complete school records.",
@@ -313,7 +120,7 @@ function LoginPortal() {
             registerPath: "/register/admin",
         },
         {
-            icon: <Presentation className="w-16 h-16 text-amber-500 stroke-[1.5]" />,
+            icon: "👨‍🏫",
             title: "Teacher",
             description:
                 "Manage attendance, homework, marks, students and class activities.",
@@ -321,7 +128,7 @@ function LoginPortal() {
             registerPath: "/register/teacher",
         },
         {
-            icon: <GraduationCap className="w-16 h-16 text-amber-500 stroke-[1.5]" />,
+            icon: "👨‍🎓",
             title: "Student",
             description:
                 "View attendance, results, homework, notices and academic information.",
@@ -331,34 +138,31 @@ function LoginPortal() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-amber-900/40 flex flex-col items-center justify-between px-4 py-8 sm:px-6 relative overflow-hidden">
-            
-            {/* Background Subtle Wave Details */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-transparent to-transparent pointer-events-none" />
+        <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-800 to-sky-500 flex items-center justify-center px-4 py-8 sm:px-6">
 
-            <div className="w-full max-w-7xl z-10 my-auto">
+            <div className="w-full max-w-7xl">
 
                 {/* =========================
                     HEADER
                 ========================= */}
                 <div className="text-center mb-10 sm:mb-14">
-                    <div className="flex justify-center mb-4">
-                        <div className="p-3 bg-amber-500/10 rounded-2xl backdrop-blur-md border border-amber-500/20">
-                            <School className="w-12 h-12 text-amber-400 stroke-[1.5]" />
-                        </div>
+
+                    <div className="text-5xl sm:text-6xl mb-4">
+                        🏫
                     </div>
 
                     <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
                         Kamalam Public School
                     </h1>
 
-                    <p className="text-slate-300 mt-3 sm:mt-4 text-base sm:text-xl font-medium">
+                    <p className="text-blue-100 mt-3 sm:mt-5 text-base sm:text-xl">
                         Welcome to the School Management Portal
                     </p>
 
-                    <p className="text-slate-400 mt-1 text-sm sm:text-base">
+                    <p className="text-blue-200 mt-2 text-sm sm:text-base">
                         Please choose your login or registration portal
                     </p>
+
                 </div>
 
 
@@ -366,108 +170,125 @@ function LoginPortal() {
                     LOGIN / REGISTER PORTALS
                 ========================= */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+
                     {portals.map((portal) => (
                         <div
                             key={portal.title}
                             className="
-                                bg-slate-50/95
-                                backdrop-blur-sm
-                                rounded-3xl
-                                shadow-2xl
-                                shadow-slate-950/20
-                                p-8
+                                bg-white
+                                rounded-2xl
+                                shadow-xl
+                                p-6 sm:p-8
                                 text-center
                                 transition-all
                                 duration-300
                                 hover:-translate-y-2
+                                hover:shadow-2xl
                                 flex
                                 flex-col
-                                border
-                                border-amber-500/20
-                                min-h-[400px]
+                                min-h-[420px]
                             "
                         >
+
                             {/* Icon */}
-                            <div className="flex justify-center items-center mb-6 pt-2">
+                            <div className="text-6xl sm:text-7xl mb-5">
                                 {portal.icon}
                             </div>
 
+
                             {/* Title */}
-                            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
                                 {portal.title}
                             </h2>
 
+
                             {/* Description */}
-                            <p className="text-slate-600 mt-4 text-sm sm:text-base leading-relaxed flex-grow">
+                            <p className="text-gray-600 mt-4 text-sm sm:text-base leading-7 flex-grow">
                                 {portal.description}
                             </p>
+
 
                             {/* =========================
                                 BUTTONS
                             ========================= */}
-                            <div className="flex flex-row gap-3 justify-center mt-8">
-                                {/* LOGIN BUTTON */}
+                            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
+
+                                {/* LOGIN */}
                                 <Link
                                     to={portal.loginPath}
                                     className="
                                         inline-flex
                                         items-center
                                         justify-center
-                                        flex-1
-                                        bg-amber-500
-                                        hover:bg-amber-600
-                                        active:bg-amber-700
-                                        text-slate-950
-                                        font-bold
-                                        py-3.5
-                                        px-4
-                                        rounded-full
+                                        w-full
+                                        sm:w-auto
+                                        min-w-[120px]
+                                        bg-blue-900
+                                        hover:bg-blue-800
+                                        active:bg-blue-950
+                                        text-white
+                                        font-semibold
+                                        px-6
+                                        py-3
+                                        rounded-lg
                                         transition
                                         duration-200
                                         shadow-md
-                                        shadow-amber-500/20
+                                        hover:shadow-lg
                                     "
                                 >
                                     Login
                                 </Link>
 
-                                {/* REGISTER BUTTON */}
+
+                                {/* REGISTER */}
                                 <Link
                                     to={portal.registerPath}
                                     className="
                                         inline-flex
                                         items-center
                                         justify-center
-                                        flex-1
+                                        w-full
+                                        sm:w-auto
+                                        min-w-[120px]
                                         border-2
-                                        border-amber-500
-                                        text-amber-600
-                                        hover:bg-amber-500/10
-                                        font-bold
-                                        py-3.5
-                                        px-4
-                                        rounded-full
+                                        border-blue-900
+                                        text-blue-900
+                                        hover:bg-blue-900
+                                        hover:text-white
+                                        active:bg-blue-950
+                                        font-semibold
+                                        px-6
+                                        py-3
+                                        rounded-lg
                                         transition
                                         duration-200
                                     "
                                 >
                                     Register
                                 </Link>
+
                             </div>
+
                         </div>
                     ))}
+
                 </div>
+
 
                 {/* =========================
                     FOOTER
                 ========================= */}
-                <div className="text-center mt-12">
-                    <p className="text-slate-400 text-sm font-medium">
+                <div className="text-center mt-10">
+
+                    <p className="text-blue-100 text-sm">
                         © 2026 Kamalam Public School
                     </p>
-                    <p className="text-slate-500 text-xs mt-1">
+
+                    <p className="text-blue-200 text-xs mt-2">
                         Secure School Management System
                     </p>
+
                 </div>
 
             </div>
