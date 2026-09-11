@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
 import API_URL from "../config";
+import { parseSync } from "vite";
 
 function AddStudent() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function AddStudent() {
     motherName: "",
     parentPhone: "",
     email: "",
+    password: "",
     address: "",
   });
 
@@ -33,7 +35,7 @@ function AddStudent() {
     e.preventDefault();
 
     try {
-     const response = await fetch(`${API_URL}/api/students`, {
+      const response = await fetch(`${API_URL}/api/students`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -273,6 +275,23 @@ function AddStudent() {
               />
             </div>
 
+          </div>
+
+          {/* Password (Yaha Add Karein) */}
+          <div>
+            <label className="block font-semibold mb-2">
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-4 py-3"
+              placeholder="Enter Student Password"
+              required
+            />
           </div>
 
           {/* Address */}
