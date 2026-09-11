@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../component/admin/AdminLayout";
 import API_URL from "../config";
-import { parseSync } from "vite";
+
 
 function AddStudent() {
   const navigate = useNavigate();
