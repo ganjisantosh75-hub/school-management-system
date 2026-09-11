@@ -20,7 +20,7 @@ function AddStudent() {
     motherName: "",
     parentPhone: "",
     email: "",
-    password: "",
+    // password: "",
     address: "",
   });
 
@@ -277,7 +277,7 @@ function AddStudent() {
 
           </div>
 
-          {/* Password (Yaha Add Karein) */}
+          {/* Password (Yaha Add Karein)
           <div>
             <label className="block font-semibold mb-2">
               Password
@@ -292,7 +292,7 @@ function AddStudent() {
               placeholder="Enter Student Password"
               required
             />
-          </div>
+          </div> */}
 
           {/* Address */}
           <div className="mt-6">
